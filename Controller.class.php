@@ -1,13 +1,20 @@
 <?php
 class Controller {
     private $view;
+    private $crud;
 
     public function __construct() {
         $this->view = new View();
+        $this->crud = new Crud();
     }
 
     public function do_register() {
-        $this->view->render_view('register');
+        if(isset($_POST)){
+            $this->crud->crud_create($_POST['person']);
+            header("Location: /?page=login");
+        }else{
+            $this->view->render_view('register');
+        }
     }
     
     public function do_login() {
